@@ -58,43 +58,26 @@ export function Landing({
         }
         .equipe-eyebrow {
           position: absolute;
-          top: 40px;
+          top: 18px;
           left: 50%;
           transform: translateX(-50%);
           z-index: 30;
           font-family: var(--font-body);
           font-weight: 600;
-          font-size: 0.85rem;
-          letter-spacing: 0.22em;
+          font-size: 0.7rem;
+          letter-spacing: 0.16em;
           text-transform: uppercase;
           color: #f2ede4;
           text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
           pointer-events: none;
+          white-space: nowrap;
         }
 
+        /* Sur mobile il n'y a pas de vrai survol : l'image du milieu ne sert a rien
+           (les deux photos sont deja visibles en permanence sous chaque nom), donc
+           on la masque plutot que de la laisser figee au centre. */
         .equipe-idle {
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          width: min(30vw, 300px);
-          aspect-ratio: 3 / 4;
-          border-radius: 10px;
-          overflow: hidden;
-          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
-          z-index: 5;
-          opacity: 1;
-          transition: opacity 0.4s ease;
-          pointer-events: none;
-        }
-        .equipe-idle img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          display: block;
-        }
-        .equipe-panels:has(.equipe-panel:hover) .equipe-idle {
-          opacity: 0;
+          display: none;
         }
 
         .equipe-panels {
@@ -110,6 +93,7 @@ export function Landing({
           align-items: center;
           justify-content: center;
           gap: 6px;
+          padding: 24px 20px;
           text-decoration: none;
           overflow: hidden;
         }
@@ -169,24 +153,21 @@ export function Landing({
           opacity: 0.9;
         }
 
-        /* Le cadre de la photo arrive juste sous le nom (a peine visible au repos),
-           comme si la personne pointait le texte depuis la photo. */
+        /* Sur mobile (pas de vrai survol) : le cadre reste visible en permanence,
+           juste sous le nom. Sur desktop (media query plus bas) il est masque par
+           defaut et ne glisse sous le texte qu'au survol. */
         .equipe-frame {
           position: relative;
           z-index: 1;
-          margin-top: 10px;
-          width: min(46vw, 230px);
+          margin-top: 14px;
+          width: min(52vw, 210px);
+          max-height: 34vh;
           aspect-ratio: 3 / 4;
           border-radius: 8px;
           overflow: hidden;
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-          opacity: 0;
-          transform: translateY(28px) scale(0.96);
-          transition: opacity 0.45s ease, transform 0.45s ease;
-        }
-        .equipe-panel:hover .equipe-frame {
+          box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
           opacity: 1;
-          transform: translateY(0) scale(1);
+          transform: none;
         }
         .equipe-frame img {
           width: 100%;
@@ -199,11 +180,51 @@ export function Landing({
           .equipe-panels {
             flex-direction: row;
           }
-          .equipe-idle {
-            width: min(16vw, 240px);
+          .equipe-panel {
+            padding: 24px;
           }
+          .equipe-eyebrow {
+            top: 40px;
+            font-size: 0.85rem;
+            letter-spacing: 0.22em;
+          }
+
+          .equipe-idle {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: min(16vw, 240px);
+            aspect-ratio: 3 / 4;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+            z-index: 5;
+            opacity: 1;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+          }
+          .equipe-idle img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+          }
+          .equipe-panels:has(.equipe-panel:hover) .equipe-idle {
+            opacity: 0;
+          }
+
           .equipe-frame {
             width: min(20vw, 220px);
+            max-height: none;
+            opacity: 0;
+            transform: translateY(28px) scale(0.96);
+            transition: opacity 0.45s ease, transform 0.45s ease;
+          }
+          .equipe-panel:hover .equipe-frame {
+            opacity: 1;
+            transform: translateY(0) scale(1);
           }
         }
       `}</style>
