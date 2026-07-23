@@ -1,14 +1,23 @@
 "use client";
-import { WYATT_URL, JODIE_URL } from "@/lib/config";
 
-export function Landing({ wyattPhoto, jodiePhoto }: { wyattPhoto: string | null; jodiePhoto: string | null }) {
+export function Landing({
+  wyattPhoto,
+  jodiePhoto,
+  wyattUrl,
+  jodieUrl,
+}: {
+  wyattPhoto: string | null;
+  jodiePhoto: string | null;
+  wyattUrl: string;
+  jodieUrl: string;
+}) {
   return (
     <main className="equipe-root">
       <div className="equipe-eyebrow">Choisis ta destination</div>
 
       <div className="equipe-panels">
         <a
-          href={JODIE_URL}
+          href={jodieUrl}
           className="equipe-panel equipe-panel--jodie"
           style={jodiePhoto ? ({ "--photo": `url(${JSON.stringify(jodiePhoto)})` } as React.CSSProperties) : undefined}
         >
@@ -18,7 +27,7 @@ export function Landing({ wyattPhoto, jodiePhoto }: { wyattPhoto: string | null;
         </a>
 
         <a
-          href={WYATT_URL}
+          href={wyattUrl}
           className="equipe-panel equipe-panel--wyatt"
           style={wyattPhoto ? ({ "--photo": `url(${JSON.stringify(wyattPhoto)})` } as React.CSSProperties) : undefined}
         >
