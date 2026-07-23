@@ -8,6 +8,7 @@ export const fetchCache = "force-no-store";
 interface TeamInfo {
   wyatt: string | null;
   jodie: string | null;
+  idle: string | null;
   linkWyatt?: string;
   linkJodie?: string;
 }
@@ -15,10 +16,10 @@ interface TeamInfo {
 async function getTeamInfo(): Promise<TeamInfo> {
   try {
     const res = await fetch(TEAM_PHOTOS_API, { cache: "no-store" });
-    if (!res.ok) return { wyatt: null, jodie: null };
+    if (!res.ok) return { wyatt: null, jodie: null, idle: null };
     return res.json();
   } catch {
-    return { wyatt: null, jodie: null };
+    return { wyatt: null, jodie: null, idle: null };
   }
 }
 
@@ -28,6 +29,7 @@ export default async function HomePage() {
     <Landing
       wyattPhoto={info.wyatt}
       jodiePhoto={info.jodie}
+      idlePhoto={info.idle}
       wyattUrl={info.linkWyatt || WYATT_URL}
       jodieUrl={info.linkJodie || JODIE_URL}
     />
